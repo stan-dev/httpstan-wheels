@@ -1,0 +1,76 @@
+environment:
+  global:
+    REPO_DIR: httpstan
+    PACKAGE_NAME: httpstan
+    BUILD_COMMIT: 0.2.2
+    BUILD_DEPENDS: "Cython"  # grpcio-tools also installed, with pip, not conda
+    TEST_DEPENDS: "pytest"
+
+    # SDK v7.0 MSVC Express 2008's SetEnv.cmd script will fail if the
+    # /E:ON and /V:ON options are not enabled in the batch script interpreter
+    # See: http://stackoverflow.com/a/13751649/163740
+    CMD_IN_ENV: "cmd /E:ON /V:ON /C %APPVEYOR_BUILD_FOLDER%\\ci\\appveyor\\windows_sdk.cmd"
+
+  matrix:
+    - PYTHON: "C:\\Miniconda36"
+      PYTHON_VERSION: "3.6"
+      PYTHON_ARCH: "32"
+    - PYTHON: "C:\\Miniconda36-x64"
+      PYTHON_VERSION: "3.6"
+      PYTHON_ARCH: "64"
+
+
+# We always use a 64-bit machine, but can build x86 distributions
+# with the TARGET_ARCH variable.
+platform:
+    - x64
+
+matrix:
+    fast_finish: true
+
+install:
+    # Fetch submodules
+    - git submodule update --init --recursive
+
+    # Install miniconda
+    - ps: .\\multibuild\\ci\\appveyor\\install.ps1
+    - SET PATH=%PYTHON%;%PYTHON%\Scripts;%PYTHON%\Library\bin;%PATH%
+    - conda info
+
+    # Check that we have the expected version and architecture for Python
+    - python --version
+    - python -c "import struct; print(struct.calcsize('P') * 8)"
+
+
+build_script:
+    # Install build requirements
+    - conda install --yes %BUILD_DEPENDS%
+
+    # build wheel:
+    - python -m pip install grpcio-tools
+    - cd %REPO_DIR%
+    - git checkout %BUILD_COMMIT%
+    - SET PATH=C:\cygwin\bin;%PATH%
+    - python -c "import grpc_tools"
+    # make protos cython does not appear to work
+    - cython -3 --cplus httpstan/stan.pyx
+    - cython -3 --cplus httpstan/compile.pyx
+    - cython -3 --cplus httpstan/spsc_queue.pyx
+    - python -m grpc_tools.protoc -Iprotos --python_out=httpstan protos/callbacks_writer.proto
+
+    - python setup.py bdist_wheel --quiet
+    - ls dist/*
+
+test_script:
+    # create test env
+    - conda create --yes -n test_env python=%PYTHON_VERSION% %TEST_DEPENDS%
+    - activate test_env
+
+    # install from wheel
+    - pip install --no-index --find-links dist/ %PACKAGE_NAME%
+
+    # run tests from install wheel
+    - cd ..
+    - ls
+    - python -m pytest httpstan/tests
+
