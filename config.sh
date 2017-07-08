@@ -4,11 +4,14 @@
 function pre_build {
     # Any stuff that you need to do before you start building the wheels
     # Runs in the root directory of this repository.
+    echo in pre_build
+    SRC_DIR=httpstan
     if [ -n "$IS_OSX" ]; then
         export CC=clang
-        export CXX=clang++
+        export CXX="clang++"
+        export CFLAGS="-stdlib=libc++ -mmacosx-version-min=10.9"
+        clang++ --version
     fi
-    SRC_DIR=httpstan
     pip install -r $SRC_DIR/requirements.txt
     pip install grpcio-tools
     # FIXME: does pre_build get executed twice? make reports "nothing to do"
@@ -26,18 +29,26 @@ function pip_opts {
 }
 
 function run_tests {
-  # Runs tests on installed distribution from an empty directory (TODO)
+    # Runs tests on installed distribution from an empty directory
     python --version
-    pip install -r $SRC_DIR/test-requirements.txt
-    python -m pytest tests
+    python -c 'import httpstan'
+    # empty directory is inside the repo directory (see ``install_run``)
+    SRC_DIR=httpstan
+    pip install -r ../$SRC_DIR/test-requirements.txt
+    if [ -n "$IS_OSX" ]; then
+        export CC=clang
+        export CXX="clang++"
+        export CFLAGS="-stdlib=libc++ -mmacosx-version-min=10.9"
+    fi
+    python -m pytest ../$SRC_DIR/tests
 }
 
 function bdist_wheel_cmd {
     # Builds wheel with bdist_wheel, puts into wheelhouse
-    # NOTE: customized from multibuild default, adds --quiet
+    # NOTE: customized from multibuild default, adds --quiet, > /dev/null
     echo in custom bdist_wheel_cmd
     local abs_wheelhouse=$1
-    python setup.py bdist_wheel --quiet
+    python setup.py bdist_wheel --quiet > /dev/null
     cp dist/*.whl $abs_wheelhouse
 }
 
