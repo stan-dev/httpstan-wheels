@@ -2,7 +2,7 @@ environment:
   global:
     REPO_DIR: httpstan
     PACKAGE_NAME: httpstan
-    BUILD_COMMIT: 0.2.2
+    BUILD_COMMIT: 0.2.3
     BUILD_DEPENDS: "Cython"  # grpcio-tools also installed, with pip, not conda
     TEST_DEPENDS: "pytest"
 
