@@ -36,6 +36,7 @@ matrix:
       language: objective-c
       env:
         - MB_PYTHON_VERSION=3.6
+    - os: osx
       language: objective-c
       env:
         - MB_PYTHON_VERSION=3.7
