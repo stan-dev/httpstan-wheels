@@ -1,7 +1,7 @@
 env:
     global:
         - REPO_DIR=httpstan
-        - BUILD_COMMIT=0.3.0
+        - BUILD_COMMIT=544b791395b4a6a85f521cb6fdfa90278efd640a
         - BUILD_DEPENDS="Cython grpcio-tools"
         - PLAT=x86_64
         - UNICODE_WIDTH=32
