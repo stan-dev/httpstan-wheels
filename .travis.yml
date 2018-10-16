@@ -5,8 +5,6 @@ env:
         - BUILD_DEPENDS="Cython grpcio-tools"
         - PLAT=x86_64
         - UNICODE_WIDTH=32
-        - NP_BUILD_DEP="numpy==1.11.3"
-        - NP_TEST_DEP="numpy==1.11.3"
         - WHEELHOUSE_UPLOADER_USERNAME=stan-worker
         - WHEELHOUSE_UPLOADER_REGION=IAD
         # Following generated with
@@ -40,8 +38,8 @@ matrix:
         - MB_PYTHON_VERSION=3.7
 
 before_install:
-    - BUILD_DEPENDS="$NP_BUILD_DEP ${BUILD_DEPENDS}"
-    - TEST_DEPENDS="$NP_TEST_DEP pytest $GEN_DEPS"
+    - BUILD_DEPENDS="${BUILD_DEPENDS}"
+    - TEST_DEPENDS="pytest $GEN_DEPS"
     - source multibuild/common_utils.sh
     - source multibuild/travis_steps.sh
     - before_install
