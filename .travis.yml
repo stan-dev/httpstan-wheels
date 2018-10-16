@@ -49,16 +49,16 @@ before_install:
 install:
     # Maybe get and clean and patch source
     - clean_code $REPO_DIR $BUILD_COMMIT
-    - travis_wait 40 build_wheel $REPO_DIR $PLAT
+    - build_wheel $REPO_DIR $PLAT
 
 script:
     - install_run $PLAT
 
 after_success:
-    # Upload wheels to Rackspace container
+    # Upload wheels to Rackspace container named `httpstan`
     - pip install wheelhouse-uploader
     - python -m wheelhouse_uploader upload --local-folder
           ${TRAVIS_BUILD_DIR}/wheelhouse/
           --no-update-index
           --region=${WHEELHOUSE_UPLOADER_REGION}
-          wheels
+          httpstan
