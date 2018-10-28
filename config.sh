@@ -1,14 +1,12 @@
 function pre_build {
     # Any stuff that you need to do before you start building the wheels
     # Runs in the root directory of this repository.
-    echo in pre_build
-    SRC_DIR=httpstan
     if [ -n "$IS_OSX" ]; then
         export CC=clang
-        export CXX="clang++"
-        export CFLAGS="-stdlib=libc++ -mmacosx-version-min=10.9"
-        clang++ --version
+        export CXX=clang++
     fi
+    echo "IN pre_build!"
+    SRC_DIR=httpstan
     pip install -r $SRC_DIR/requirements.txt
     pip install grpcio-tools
     # FIXME: does pre_build get executed twice? make reports "nothing to do"
