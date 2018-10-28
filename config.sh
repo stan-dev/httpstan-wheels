@@ -5,7 +5,6 @@ function pre_build {
         export CC=clang
         export CXX=clang++
     fi
-    echo "IN pre_build!"
     SRC_DIR=httpstan
     pip install -r $SRC_DIR/requirements.txt
     pip install grpcio-tools
