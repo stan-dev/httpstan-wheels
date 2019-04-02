@@ -5,12 +5,12 @@ function pre_build {
         export CC=clang
         export CXX=clang++
     fi
-    echo "IN pre_build!"
+    echo "in pre_build"
     SRC_DIR=httpstan
     pip install -r $SRC_DIR/requirements.txt
     pip install grpcio-tools
     # FIXME: does pre_build get executed twice? make reports "nothing to do"
-    make -C $SRC_DIR cython protos
+    make -C $SRC_DIR
 }
 
 function run_tests {
