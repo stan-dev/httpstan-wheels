@@ -5,6 +5,7 @@ env:
         - BUILD_DEPENDS="Cython grpcio-tools"
         - PLAT=x86_64
         - UNICODE_WIDTH=32
+        - MB_ML_VER=2010
         - WHEELHOUSE_UPLOADER_USERNAME=stan-worker
         - WHEELHOUSE_UPLOADER_REGION=IAD
         # custom manylinux image with newer gcc

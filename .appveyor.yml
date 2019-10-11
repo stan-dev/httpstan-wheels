@@ -6,6 +6,7 @@ environment:
     REPO_DIR: httpstan
     PACKAGE_NAME: httpstan
     BUILD_COMMIT: 0.9.2
+    MB_ML_VER: 2010
     WHEELHOUSE_UPLOADER_USERNAME: "stan-worker"
     WHEELHOUSE_UPLOADER_REGION: "IAD"
     WHEELHOUSE_UPLOADER_SECRET:
