@@ -49,7 +49,7 @@ install:
     # Maybe get and clean and patch source
     - clean_code $REPO_DIR $BUILD_COMMIT
     # osx wheels take a particularly long time to build
-    - travis_wait 40 build_wheel $REPO_DIR $PLAT
+    - build_wheel $REPO_DIR $PLAT
 
 script:
     - install_run $PLAT
