@@ -1,0 +1,6 @@
+[submodule "multibuild"]
+	path = multibuild
+	url = https://github.com/riddell-stan/multibuild
+[submodule "httpstan"]
+	path = httpstan
+	url = https://github.com/stan-dev/httpstan
