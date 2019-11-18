@@ -5,7 +5,7 @@ environment:
     MINICONDA: "C:\\Miniconda36-x64"
     REPO_DIR: httpstan
     PACKAGE_NAME: httpstan
-    BUILD_COMMIT: v0.10.1
+    BUILD_COMMIT: v1.0.0
     WHEELHOUSE_UPLOADER_USERNAME: "stan-worker"
     WHEELHOUSE_UPLOADER_REGION: "IAD"
     WHEELHOUSE_UPLOADER_SECRET:
