@@ -7,6 +7,7 @@ function pre_build {
     fi
     echo "in pre_build"
     SRC_DIR=httpstan
+    pip install -r $SRC_DIR/build-requirements.txt
     pip install -r $SRC_DIR/requirements.txt
     pip install grpcio-tools
     # FIXME: does pre_build get executed twice? make reports "nothing to do"
