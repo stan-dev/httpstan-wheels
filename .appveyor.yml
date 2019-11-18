@@ -32,6 +32,7 @@ install:
   - mingw32-make --version
 
   # Install the build dependencies of the project.
+  - pip install -q -r build-requirements.txt
   - pip install -q -r requirements.txt
   - pip install -q -r test-requirements.txt
 
