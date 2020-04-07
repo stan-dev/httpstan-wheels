@@ -7,10 +7,8 @@ function pre_build {
     fi
     echo "in pre_build"
     SRC_DIR=httpstan
-    pip install -r $SRC_DIR/build-requirements.txt
-    pip install -r $SRC_DIR/requirements.txt
-    pip install grpcio-tools
-    # FIXME: does pre_build get executed twice? make reports "nothing to do"
+    python -m pip install "poetry<2,>=1.0" tox
+    python -m pip install "mypy-protobuf~=1.0"
     make -C $SRC_DIR
 }
 
@@ -20,6 +18,23 @@ function run_tests {
     python -c 'import httpstan'
     # empty directory is inside the repo directory (see ``install_run``)
     SRC_DIR=httpstan
-    pip install -r ../$SRC_DIR/test-requirements.txt
     python -m pytest ../$SRC_DIR/tests
+}
+
+function poetry_wheel_cmd {
+    echo "In poetry_wheel_cmd"
+    echo -e "Install Cython via 'python -m poetry run pip install Cython'. Side-effect: creates a poetry venv subsequently used for 'poetry build'."
+    python -m poetry run pip install Cython
+
+    local abs_wheelhouse=$1
+    python -m poetry build -v
+    cp dist/*.whl $abs_wheelhouse
+}
+
+function build_poetry_wheel {
+    build_wheel_cmd "poetry_wheel_cmd" $@
+}
+
+function build_wheel {
+    build_poetry_wheel $@
 }

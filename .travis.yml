@@ -1,8 +1,8 @@
 env:
     global:
         - REPO_DIR=httpstan
-        - BUILD_COMMIT=v1.0.0
-        - BUILD_DEPENDS="Cython grpcio-tools"
+        - BUILD_COMMIT=1.1.0
+        - BUILD_DEPENDS="Cython"
         - PLAT=x86_64
         - UNICODE_WIDTH=32
         - WHEELHOUSE_UPLOADER_USERNAME=stan-worker
