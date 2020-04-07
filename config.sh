@@ -7,10 +7,8 @@ function pre_build {
     fi
     echo "in pre_build"
     SRC_DIR=httpstan
-    pip install -r $SRC_DIR/build-requirements.txt
-    pip install -r $SRC_DIR/requirements.txt
-    pip install grpcio-tools
-    # FIXME: does pre_build get executed twice? make reports "nothing to do"
+    pip install "poetry<2,>=1.0" tox
+    pip install "mypy-protobuf~=1.0"
     make -C $SRC_DIR
 }
 
@@ -20,6 +18,5 @@ function run_tests {
     python -c 'import httpstan'
     # empty directory is inside the repo directory (see ``install_run``)
     SRC_DIR=httpstan
-    pip install -r ../$SRC_DIR/test-requirements.txt
     python -m pytest ../$SRC_DIR/tests
 }
