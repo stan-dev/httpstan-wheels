@@ -7,8 +7,7 @@ env:
         - UNICODE_WIDTH=32
         - WHEELHOUSE_UPLOADER_USERNAME=stan-worker
         - WHEELHOUSE_UPLOADER_REGION=IAD
-        # custom manylinux image with newer gcc
-        - DOCKER_IMAGE=tktechdocker/manylinux:gcc8.3.0
+        - MB_ML_VER=2014
         # Following generated with
         # travis encrypt -r stan-dev/httpstan-wheels WHEELHOUSE_UPLOADER_SECRET=<the api key>
         - secure: "G8yudPdGFoDKYRDv61hXB2/nuofejNb6u6mUpOjR1RgElM1LbkpKjekUOD1C8+YC98yy+mbcLMiq+emUL5LkpPeJ/jfyzkDvKhwNDmKwODEiIbaC1mZRIoZZTprMRygR7E0aIo0qNz+uYIBly0CmXzqRrJYBZghd99tunLisnmebPFvGotBvjxzCEjnmmnHYmgtYZEMPgVTA9dX+iGVgDmlFrkwE/hSRu73laQbGrMlh6c44gPjNSzRRMhgA/VMPCqo0honHd4Xk4YINnvoYAhn/CAY+aFTQ24Vqy0b3AkOzpx4Copp2xaYg++4Fm4/m+kkbiUbtOfnK7mBizZSj1J+4z58/T5D2KRB4B9750ESWOcOLm7OQZap+FHBwwgU4xKkLaOB3AMhCpl3gyHIvxZk5zFL4+E0CBglqlkPxBxyEaq8fTwDSlByibQ0NdA2jerkPqDgIwOwj1todffJWMshYpgQEgG0bp00492/+u0aM31ue2ownYq1lhcsm93tWSfC89RQaszOut9fJ4K9ag+tyus/AwXkgwkfLjbX5mRL1rUGLYwOdQhmm46QVO0fXm2ZZ4VeNvSGj4Fb0zuJ98cdV9IdFFO/Zqx36vKq64r8+blrUp1fI6xZNr/A61EAcwxNB1tMCsQPcQ9IpZdBmv4pUfTuy5V281MdUMq8OFcM="
