@@ -2,7 +2,7 @@ version: ~> 1.0
 env:
   global:
     - REPO_DIR=httpstan
-    - BUILD_COMMIT=1.1.1
+    - BUILD_COMMIT=1.1.2
     - BUILD_DEPENDS="Cython"
     # test dependencies from the [tool.poetry.dev-dependencies] section in pyproject.toml
     - TEST_DEPENDS="pytest-cov~=2.8 pytest-asyncio~=0.10 apispec[yaml,validation]~=3.1"
@@ -47,7 +47,9 @@ script:
 after_success:
   # PYPI_TOKEN is a secure variable set via the travis-ci.com website
   - |
-    if [[ $TRAVIS_PULL_REQUEST != "false" ]]; then
+    if [[ $TRAVIS_PULL_REQUEST == "false" ]]; then
       python3 -m pip install twine
       python3 -m twine upload --skip-existing -u __token__ -p "$PYPI_TOKEN" ${TRAVIS_BUILD_DIR}/wheelhouse/*.whl
+    else
+      echo "This build is connected to a pull request. Not uploading to PyPI."
     fi
