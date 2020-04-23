@@ -23,10 +23,12 @@ jobs:
     env:
       - MB_PYTHON_VERSION=3.8
   - os: osx
+    osx_image: xcode11.3
     language: objective-c
     env:
       - MB_PYTHON_VERSION=3.7
   - os: osx
+    osx_image: xcode11.3
     language: objective-c
     env:
       - MB_PYTHON_VERSION=3.8
