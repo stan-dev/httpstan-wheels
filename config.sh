@@ -18,7 +18,7 @@ function run_tests {
     python -c 'import httpstan'
     # empty directory is inside the repo directory (see ``install_run``)
     SRC_DIR=httpstan
-    python -m pytest ../$SRC_DIR/tests
+    python -m pytest -s -v $PYTEST_ARGS ../$SRC_DIR/tests
 }
 
 function poetry_wheel_cmd {
