@@ -2,8 +2,8 @@ version: ~> 1.0
 env:
   global:
     - REPO_DIR=httpstan
-    - BUILD_COMMIT=2.0.0
-    - BUILD_DEPENDS=""
+    - BUILD_COMMIT=2.0.1
+    - BUILD_DEPENDS="Cython"
     # test dependencies from the [tool.poetry.dev-dependencies] section in pyproject.toml
     - TEST_DEPENDS="pytest-cov~=2.8 pytest-asyncio<0.11,>=0.10 pytest-xdist~=1.32 apispec[yaml,validation]~=3.1"
     - MB_ML_VER=2014
