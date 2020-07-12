@@ -18,6 +18,8 @@ function run_tests {
     python -c 'import httpstan'
     # empty directory is inside the repo directory (see ``install_run``)
     SRC_DIR=httpstan
+    # remove shared libraries built in-tree. Ensure shared libs in wheel are used
+    rm -rf ../$SRC_DIR/httpstan/lib
     python -m pytest -s -v ../$SRC_DIR/tests
 }
 
