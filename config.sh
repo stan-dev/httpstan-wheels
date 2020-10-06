@@ -7,8 +7,9 @@ function pre_build {
     fi
     echo "in pre_build"
     SRC_DIR=httpstan
-    python -m pip install "poetry<2,>=1.0" tox
-    python -m pip install "mypy-protobuf~=1.0"
+    # these steps mirror those in httpstan/.travis.yml
+    python -m pip install "poetry==1.0.9"
+    python -m pip install "mypy-protobuf~=1.21"
     make -C $SRC_DIR
 }
 
@@ -25,9 +26,6 @@ function run_tests {
 
 function poetry_wheel_cmd {
     echo "In poetry_wheel_cmd"
-    echo -e "Install Cython via 'python -m poetry run pip install Cython'. Side-effect: creates a poetry venv subsequently used for 'poetry build'."
-    python -m poetry run pip install Cython
-
     local abs_wheelhouse=$1
     python -m poetry build -v
     cp dist/*.whl $abs_wheelhouse
