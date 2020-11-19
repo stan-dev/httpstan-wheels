@@ -9,7 +9,6 @@ function pre_build {
     SRC_DIR=httpstan
     # these steps mirror those in httpstan/.travis.yml
     python -m pip install "poetry==1.0.9"
-    python -m pip install "mypy-protobuf~=1.21"
     make -C $SRC_DIR
 }
 
