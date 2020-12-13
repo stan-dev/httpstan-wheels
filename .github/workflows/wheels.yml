@@ -17,7 +17,7 @@ jobs:
 
     env:
       REPO_DIR: httpstan
-      BUILD_COMMIT: 4.0.0
+      # BUILD_COMMIT is set in a step below to the most recent tagged version
       BUILD_DEPENDS: ""
       MB_PYTHON_VERSION: ${{ matrix.python-version }}
       # test dependencies from the [tool.poetry.dev-dependencies] section in pyproject.toml
@@ -48,6 +48,9 @@ jobs:
         run: |
           if [ "x32" == "${{ matrix.platform }}" ]; then echo "PLAT=i686" >> $GITHUB_ENV; else echo "PLAT=x86_64" >> $GITHUB_ENV; fi
           if [ "macos-latest" == "${{ matrix.os }}" ]; then echo "TRAVIS_OS_NAME=osx" >> $GITHUB_ENV; else echo "TRAVIS_OS_NAME=${{ matrix.os }}" >> $GITHUB_ENV; fi
+      - name: Use most recent tag as BUILD_COMMIT
+        run:
+          echo "BUILD_COMMIT=$(git tag --sort version:refname | tail -1)" >> $GITHUB_ENV
       - name: Print environment variables
         run: |
           echo "TRAVIS_BRANCH: ${TRAVIS_BRANCH}"
@@ -59,6 +62,7 @@ jobs:
           echo "DOCKER_TEST_IMAGE: ${DOCKER_TEST_IMAGE}"
           echo "BUILD_DEPENDS: ${BUILD_DEPENDS}"
           echo "TEST_DEPENDS: ${TEST_DEPENDS}"
+          echo "BUILD_COMMIT: ${BUILD_COMMIT}"
       - name: Build and install wheels
         run: |
           source multibuild/common_utils.sh
