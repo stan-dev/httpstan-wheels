@@ -7,7 +7,7 @@ function pre_build {
     fi
     echo "in pre_build"
     SRC_DIR=httpstan
-    # these steps mirror those in httpstan/.travis.yml
+    # these steps mirror those in httpstan
     python -m pip install "poetry==1.0.9"
     make -C $SRC_DIR
 }
