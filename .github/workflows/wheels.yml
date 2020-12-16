@@ -55,7 +55,7 @@ jobs:
           if [ "x32" == "${{ matrix.platform }}" ]; then echo "PLAT=i686" >> $GITHUB_ENV; else echo "PLAT=x86_64" >> $GITHUB_ENV; fi
           if [ "macos-latest" == "${{ matrix.os }}" ]; then echo "TRAVIS_OS_NAME=osx" >> $GITHUB_ENV; else echo "TRAVIS_OS_NAME=${{ matrix.os }}" >> $GITHUB_ENV; fi
       - name: Use most recent tag as BUILD_COMMIT
-        run: echo "BUILD_COMMIT=$(cd httpstan && git tag --sort version:refname | tail -1)" >> $GITHUB_ENV
+        run: echo "BUILD_COMMIT=$(cd httpstan && git fetch --tags && git tag --sort version:refname | tail -1)" >> $GITHUB_ENV
       - name: Print environment variables
         run: |
           echo "TRAVIS_BRANCH: ${TRAVIS_BRANCH}"
