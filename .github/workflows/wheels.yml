@@ -41,6 +41,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
+          # fetch-depth: 0 fetches all commits (and tags). Needed for httpstan subrepo.
+          # submodule fetching inherits this parameter. See https://github.com/actions/checkout/issues/367
+          fetch-depth: 0
           submodules: true
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
@@ -55,7 +58,7 @@ jobs:
           if [ "x32" == "${{ matrix.platform }}" ]; then echo "PLAT=i686" >> $GITHUB_ENV; else echo "PLAT=x86_64" >> $GITHUB_ENV; fi
           if [ "macos-latest" == "${{ matrix.os }}" ]; then echo "TRAVIS_OS_NAME=osx" >> $GITHUB_ENV; else echo "TRAVIS_OS_NAME=${{ matrix.os }}" >> $GITHUB_ENV; fi
       - name: Use most recent tag as BUILD_COMMIT
-        run: echo "BUILD_COMMIT=$(cd httpstan && git fetch --tags && git tag --sort version:refname | tail -1)" >> $GITHUB_ENV
+        run: echo "BUILD_COMMIT=$(cd httpstan && git tag --sort version:refname | tail -1)" >> $GITHUB_ENV
       - name: Print environment variables
         run: |
           echo "TRAVIS_BRANCH: ${TRAVIS_BRANCH}"
