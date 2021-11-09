@@ -20,9 +20,7 @@ function run_tests {
     SRC_DIR=httpstan
     # remove shared libraries built in-tree. Ensure shared libs in wheel are used
     rm -rf ../$SRC_DIR/httpstan/lib
-    if [ -n "$IS_OSX" ]; then
-        python -m pytest -s -v -x ../$SRC_DIR/tests
-    fi
+    python -m pytest -s -v -x ../$SRC_DIR/tests
 }
 
 function poetry_wheel_cmd {
