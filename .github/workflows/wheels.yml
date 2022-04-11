@@ -39,7 +39,6 @@ jobs:
       TEST_DEPENDS: "pytest~=5.4 pytest-cov~=2.8 pytest-asyncio<0.11,>=0.10 apispec[yaml,validation]~=3.1"
       MB_ML_VER: "_2_24"
       DOCKER_TEST_IMAGE: "multibuild/focal_x86_64"
-      MACOSX_DEPLOYMENT_TARGET: "10.9"
 
       TRAVIS_PYTHON_VERSION: ${{ matrix.python-version }}
       TRAVIS_REPO_SLUG: ${{ github.repository }}
@@ -66,6 +65,7 @@ jobs:
         run: |
           if [ "x32" == "${{ matrix.platform }}" ]; then echo "PLAT=i686" >> $GITHUB_ENV; else echo "PLAT=x86_64" >> $GITHUB_ENV; fi
           if [ "macos-latest" == "${{ matrix.os }}" ]; then echo "TRAVIS_OS_NAME=osx" >> $GITHUB_ENV; else echo "TRAVIS_OS_NAME=${{ matrix.os }}" >> $GITHUB_ENV; fi
+          if [ "arm64" == "${{ matrix.platform }}" ]; then echo "MACOSX_DEPLOYMENT_TARGET=11.0" >> $GITHUB_ENV; else echo "MACOSX_DEPLOYMENT_TARGET=10.9" >> $GITHUB_ENV; fi
       - name: Use most recent tag as BUILD_COMMIT
         run: echo "BUILD_COMMIT=$(cd httpstan && git tag --sort version:refname | tail -1)" >> $GITHUB_ENV
       - name: Print environment variables
