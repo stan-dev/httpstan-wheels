@@ -18,17 +18,17 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.8, 3.9]
-        os: [ubuntu-20.04, macos-10.15]
+        os: [ubuntu-20.04, macos-latest]
         platform: [x64]
         include:
           - python-version: "3.10"
             os: ubuntu-20.04
             platform: x64
           - python-version: "3.10"
-            os: macos-11.0
+            os: macos-latest
             platform: x64
           - python-version: "3.10"
-            os: macos-11.0
+            os: macos-latest
             platform: arm64
     env:
       REPO_DIR: httpstan
@@ -63,9 +63,8 @@ jobs:
           pip install virtualenv
       - name: Set multibuild environment variables
         run: |
-          if [ "x32" == "${{ matrix.platform }}" ]; then echo "PLAT=i686" >> $GITHUB_ENV; else echo "PLAT=x86_64" >> $GITHUB_ENV; fi
           if [ "macos-latest" == "${{ matrix.os }}" ]; then echo "TRAVIS_OS_NAME=osx" >> $GITHUB_ENV; else echo "TRAVIS_OS_NAME=${{ matrix.os }}" >> $GITHUB_ENV; fi
-          if [ "arm64" == "${{ matrix.platform }}" ]; then echo "MACOSX_DEPLOYMENT_TARGET=11.0" >> $GITHUB_ENV; else echo "MACOSX_DEPLOYMENT_TARGET=10.9" >> $GITHUB_ENV; fi
+          if [ "arm64" == "${{ matrix.platform }}" ]; then echo "MACOSX_DEPLOYMENT_TARGET=11.0" >> $GITHUB_ENV; echo "PLAT=arm64" >> $GITHUB_ENV; else echo "MACOSX_DEPLOYMENT_TARGET=10.9" >> $GITHUB_ENV; fi
       - name: Use most recent tag as BUILD_COMMIT
         run: echo "BUILD_COMMIT=$(cd httpstan && git tag --sort version:refname | tail -1)" >> $GITHUB_ENV
       - name: Print environment variables
@@ -76,6 +75,7 @@ jobs:
           echo "TRAVIS_EVENT_TYPE: ${TRAVIS_EVENT_TYPE}"
           echo "TRAVIS_OS_NAME: ${TRAVIS_OS_NAME}"
           echo "PLAT: ${PLAT}"
+          echo "MACOSX_DEPLOYMENT_TARGET: ${MACOSX_DEPLOYMENT_TARGET}"
           echo "DOCKER_TEST_IMAGE: ${DOCKER_TEST_IMAGE}"
           echo "BUILD_DEPENDS: ${BUILD_DEPENDS}"
           echo "TEST_DEPENDS: ${TEST_DEPENDS}"
