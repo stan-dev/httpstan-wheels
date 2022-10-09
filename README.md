@@ -11,5 +11,4 @@ GitHub Actions tries to release previously-unreleased versions of `httpstan` twi
 ### Differences from the standard ``multibuild`` instructions
 
 - `BUILD_COMMIT` is automatically set to the most recent tagged version of `httpstan`. See `.github/workflows/wheels.yml`.
-- ``MACOSX_DEPLOYMENT_TARGET`` is currently set to ``10.9``. Multibuild gives the variable
-  a different default value. This environment variable is set in `.github/workflows/wheels.yml`.
+- `MB_PYTHON_OSX_VER=10.9` is set in `.github/workflows/wheels.yml`.
