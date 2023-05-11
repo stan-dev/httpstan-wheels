@@ -85,14 +85,14 @@ jobs:
           clean_code $REPO_DIR $BUILD_COMMIT
           echo "------- BUILD WHEEL --------"
           build_wheel $REPO_DIR $PLAT
-      - name: Upload wheels
-        if: always()
-        env:
-          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
-        run: |
-          if [[ $GITHUB_EVENT_NAME != "pull_request" ]]; then
-            python3 -m pip install twine
-            python3 -m twine upload --skip-existing -u __token__ -p "$PYPI_TOKEN" ${TRAVIS_BUILD_DIR}/wheelhouse/*.whl
-          else
-            echo "This build is connected to a pull request. Not uploading to PyPI."
-          fi
+#      - name: Upload wheels
+#        if: always()
+#        env:
+#          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
+#        run: |
+#          if [[ $GITHUB_EVENT_NAME != "pull_request" ]]; then
+#            python3 -m pip install twine
+#            python3 -m twine upload --skip-existing -u __token__ -p "$PYPI_TOKEN" ${TRAVIS_BUILD_DIR}/wheelhouse/*.whl
+#          else
+#            echo "This build is connected to a pull request. Not uploading to PyPI."
+#          fi
