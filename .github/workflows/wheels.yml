@@ -37,14 +37,14 @@ jobs:
       TRAVIS_BUILD_DIR: ${{ github.workspace }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           # fetch-depth: 0 fetches all commits (and tags). Needed for httpstan subrepo.
           # submodule fetching inherits this parameter. See https://github.com/actions/checkout/issues/367
           fetch-depth: 0
           submodules: true
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install virtualenv
