@@ -8,7 +8,7 @@ function pre_build {
     echo "in pre_build"
     SRC_DIR=httpstan
     # these steps mirror those in httpstan
-    python -m pip install "poetry~=1.7.1"
+    python -m pip install "poetry~=1.8"
     make -C $SRC_DIR
 }
 
